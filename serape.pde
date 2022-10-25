@@ -1,4 +1,4 @@
-PImage rplace;
+PImage seedImage;
 
 PImage stitch() {
   
@@ -8,15 +8,15 @@ PImage stitch() {
   int m = (int)pow(2, (int)random(5, 9));
   int angle = (int)pow(2, (int)random(4, 11));
       
-  for (int i = 0; i < rplace.width; i++) {
-    for (int j = 0; j < rplace.height; j++) {
+  for (int i = 0; i < seedImage.width; i++) {
+    for (int j = 0; j < seedImage.height; j++) {
       int x = i;
-      int y = rplace.height - j - 1;
+      int y = seedImage.height - j - 1;
       
       int offset = (x * m) + (y * angle);
       
-      color c = color(rplace.pixels[offset % rplace.pixels.length]);
-      serape.pixels[i + (j*serape.width)] = c;     
+      color c = color(seedImage.pixels[offset % seedImage.pixels.length]);
+      serape.pixels[(i + (j*serape.width)) % serape.pixels.length] = c;     
     }
   } 
   serape.updatePixels();
@@ -25,13 +25,13 @@ PImage stitch() {
 
 void setup() {
   size(640, 480);
-  rplace = loadImage("rplace640.png");
-  rplace.loadPixels();
+  seedImage = loadImage("images/blue.jpg");
+  seedImage.loadPixels();
+ 
   noLoop();
 }
 
 void draw() {
   PImage serape = stitch();
   image(serape, 0, 0);
-  //save("serape.png");
 }
