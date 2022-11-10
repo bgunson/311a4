@@ -24,6 +24,7 @@ function preload() {
 function setup(){
     let cnv = createCanvas(640, 480);
     cnv.mouseClicked(canvasClicked);
+    cnv.parent("sketch");
     quilt=createImage(640, 640);
     background(0);
     noLoop();

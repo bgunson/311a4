@@ -1,11 +1,121 @@
 <html>
-  <head>
-    <meta charset="UTF-8">
-    <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
-    <script src="/G4P5js/public_html/G4P5js.js"></script>
-    <script src="sketch.js"></script>
-  </head>
-  <body style="background-color:#99CCFF;">
-  <div id='settings'></div>
-  </body>
+
+<head>
+  <meta charset="UTF-8">
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.1.9/lib/p5.js"></script>
+  <script src="sketch.js"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+  <h1>Generative Quilting</h1>
+  <h5 style="text-align: center;">Bennett Gunson - November 2022</h5>
+  <hr>
+
+  <p>
+    This project utilizes generative art techniques to create textures and patterns that are reminiscent to fabric from existing images. 
+    What began as a simple programming error has evolved to what I call <i>generative quilting</i>. I stumbled across this effect when trying to 
+    algorithmically recreate the timelapse of <a href="https://www.reddit.com/r/place/comments/txufad/the_complete_rplace_timelapse/">r/place</a>, a social experiment ran by Reddit in April 2022 where users "battled" to fill 
+    a blank canvas with one pixel at a time. 
+  </p>
+
+  <figure>
+    <img src="images/seeds/rplace.png">
+    <figcaption>A screen capture of r/place. (Image via FriendlyChimpanzee/YouTube)</figcaption>
+  </figure>
+
+  <p>
+    The r/place image gives a canvas of correlated but seemingly random colours. If we used the canvas in realtime, 
+    (assuming there are no predetermined bots placing pixels - which there were a lot of) the array of integer values representing colour
+    could be a source of decent randomness. There were millions of users competing to fill spaces in realtime, no one canvas would be replicated
+    by the next (maybe). 
+  </p>
+  <p>
+    Building on the representation of images, they are just an array of numbers representing each pixel. Starting in the top left corner we have
+    (x,y) = (0,0) coordinates. <a href="https://processing.org/tutorials/pixels">This tutorial</a> explains images and pixels really well. Basically, if 
+    we wish to access an arbitrary (x,y) pixel within the image, we need to properly offset into the 1-dimensional array. Here is the formula:
+  </p>
+
+  <div class="code-snippet">
+    <code>
+      let offset := x + y * width;  
+      <br><br>
+      // this is the pixel @ (x,y) <br>
+      let pixel := image[offset];
+    </code>
+  </div>
+
+  <p>
+    Now heres where my programming error came in. I had accidentally added a coefficient to the Y offset:
+  </p>
+
+  <div class="code-snippet">
+    <code>
+      let yM := random(height); <br><br>
+      // where yM is a random multiplier <br><br>
+      let offset := x + (y * yM) * width;
+      <br><br>
+      ...
+      <br><br>
+      // we an also add an x multiplier<br>
+      let offset := (x * xM) + (y * yM) * width;  
+    </code>
+  </div>
+
+  <p>
+    If we recreate the r/place image by iterating through the original pixel by pixel and apply randomly chosen multipliers we end up with 
+    images which contain textures similar to fabric.
+  </p>
+
+  <figure>
+    <img src="images/output/serape.png" width="640" height="480">
+    <figcaption>Outputted image from the r/place screen capture</figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/inspiration/blanket.jpg" width="640" height="480">
+    <figcaption>To me the image looks similar to a serape pattern</figcaption>
+  </figure>
+
+  <p>
+    I wanted to see how closely I could imitate fabric. So I fiddled with different multipliers and seed images until I 
+    recreated the look of denim algorithmically. The first image below is the seed image, followed by the output from the algorithm, and finally 
+    a real life comparison.
+  </p>
+
+  <figure>
+    <img src="images/seeds/blue.jpg">
+    <figcaption>Chapel of the Souls, Porto (Portugal). (Image via <a href="https://unsplash.com/@slestrat">Serge Le Strat</a>)</figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/output/denim.png" height="480" width="640">
+    <figcaption>Pattern generated which looks like denim</figcaption>
+  </figure>
+
+  <figure>
+    <img src="images/inspiration/jeans.jpg">
+    <figcaption>A close up of my favourite jeans</figcaption>
+  </figure>
+
+  <p>
+    Now I wanted to go even further with this algorithm and here is where the quilting comes in. If we split the image into a 
+    series of sub-images and apply the fabric algorithm to each of them individually we can make "patches" and the outputted image
+    looks as if it was quilted. Its not perfect , but I see it as a combination of pixelation and texture which mimics the quilt look.
+    This page comes equipped with numerous test images so each page refresh there is a chance a different image will be quilted.
+  </p>
+
+  <figure>
+    <!-- <div id='settings'></div> -->
+    <div id="sketch"></div>
+    <figcaption>Click on the image to see the original</figcaption>
+  </figure>
+
+  <hr>
+
+  <p style="text-align: center;"><a href="https://github.com/bgunson/311a4">View source code</a> | <a href="https://github.com/bgunson/311a4/zipball/main">Download zip</a> | <a href="https://github.com/bgunson/311a4/tarball/main">Download tar</a></p>
+
+</body>
+
 </html>

@@ -1,0 +1,42 @@
+body {
+    color: white;
+    background-color: black;
+    padding: 10px 10vw;
+    font-family: Verdana, sans-serif;
+
+}
+
+h1 {
+    text-align: center;
+}
+
+a {
+    color: goldenrod;
+}
+
+figure {
+    text-align: center;
+}
+
+figcaption {
+    font-size: smaller;
+}
+
+#sketch {
+    cursor: pointer;
+    margin: 0;
+    display: flex;
+
+    /* This centers our sketch horizontally. */
+    justify-content: center;
+
+    /* This centers our sketch vertically. */
+    align-items: center;
+}
+
+.code-snippet {
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid grey;
+}
