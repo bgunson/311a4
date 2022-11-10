@@ -1,17 +1,18 @@
 let mosaic;
 
 function preload() {
-    mosaic = loadImage("images/blue.jpg");
+    mosaic = loadImage("images/seeds/blue.jpg");
 }
 
 function setup() {
-    createCanvas(640, 480);
+    const denimCanvas = createCanvas(640, 480);
+    denimCanvas.parent("denim");
     mosaic.loadPixels();
     noLoop();
 }
 
 function draw() {
-    let denim = stitch(mosaic);
+    let denim = stitch(mosaic, 600, 16);
     image(denim, 0, 0);
 }
 

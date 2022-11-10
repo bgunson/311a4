@@ -1,14 +1,13 @@
-
-
-function stitch(seedImage){
+function stitch(seedImage, xMult, yMult){
     let fabric = createImage(640, 640);
     fabric.loadPixels();
-    let m = int(pow(2, int(random(5, 9))));
-    let angle = int(pow(2, int(random(4, 11))));
+
+    xMult %= fabric.width;
+    yMult %= fabric.height;
 
     for(let x = 0; x < seedImage.width; x++) {
         for(let y = 0; y < seedImage.height; y++) {
-            let offset = (x * m) + (y * angle);
+            let offset = (x * xMult) + (y * yMult);
             let c = color(seedImage.pixels[offset], seedImage.pixels[offset+1], seedImage.pixels[offset+2], 255);
             fabric.set((x + (y * fabric.width))%width, (x + (y * fabric.width))/width, c);
         }
