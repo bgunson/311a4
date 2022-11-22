@@ -72,6 +72,7 @@ function delay( milliseconds){
 
 function next(d) {
     imageIndex += d;
-    imageIndex %= Math.abs(templates.length);
+    imageIndex = (templates.length + imageIndex) % templates.length;
+    console.log(imageIndex);
     template=loadImage("images/templates/" + templates[imageIndex], () => redraw());
 }
