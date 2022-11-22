@@ -4,37 +4,37 @@ let MIN_PATCH_WIDTH = 20;
 let patchWidth = 16;
 let patchHeight = 9;
 let patchDelta = 0;
-let templates = ["coast.jpg", "fire.jpg", "flowers.jpg", "falls.jpg", "dog.jpg", "mountains.jpg"];
+let templates = ["coast.jpg", "fire.jpg", "flowers.jpg", "falls.jpg", "dog.jpg", "mountains.jpg", "stable.jpg", "road.jpg"];
 let showQuilt = true;
+let imageIndex;
 
 function canvasClicked() {
+    background(0);  
     showQuilt = !showQuilt;
     if (!showQuilt) {
         image(template, 0, 0);
     } else {
         image(quilt, 0, 0);
     }
-    // redraw();
 }
 
 function preload() {
-    template=loadImage("images/templates/" + templates[int(random(templates.length))]);
+    imageIndex = int(random(templates.length));
+    template=loadImage("images/templates/" + templates[imageIndex]);
 }
 
 function setup(){
     let cnv = createCanvas(640, 480);
     cnv.mouseClicked(canvasClicked);
     cnv.parent("sketch");
-    quilt=createImage(640, 640);
-    background(0);
     noLoop();
 }
 
 function draw(){
-    
+    background(0);
+    quilt=createImage(640, 480);
     quilt.loadPixels();
     template.loadPixels();
-
     for(let x = 0;x < template.width;x+=patchWidth) {
         for(let y = 0;y < template.height;y+=patchHeight) {
             let loc = (x + y * template.width) * 4;
@@ -55,6 +55,7 @@ function draw(){
         }
     }
     quilt.updatePixels();
+    
     image(quilt, 0, 0);
 }
 
@@ -67,4 +68,10 @@ function delay( milliseconds){
          stop=true;
     }
   }
+}
+
+function next(d) {
+    imageIndex += d;
+    imageIndex %= Math.abs(templates.length);
+    template=loadImage("images/templates/" + templates[imageIndex], () => redraw());
 }

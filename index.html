@@ -103,16 +103,19 @@
   <p>
     Now I wanted to go even further with this algorithm and here is where the quilting comes in. If we split the image into a 
     series of sub-images and apply the fabric algorithm to each of them individually we can make "patches" and the outputted image
-    looks as if it was quilted. Its not perfect, but I see it as a combination of pixelation and texture which mimics the quilt look.
-    This page comes equipped with numerous test images so each page refresh there is a chance a different image will be quilted. All quilted images
+    looks as if it was quilted. Its not perfect, but I see it as a combination of pixelation and texture which mimics the quilt look. All quilted images
     are my own.
   </p>
 
-  <figure>
-    <!-- <div id='settings'></div> -->
-    <div id="sketch"></div>
-    <figcaption>Click on the image to see the original</figcaption>
-  </figure>
+  <div class="slideshow">
+    <figure>
+      <!-- <div id='settings'></div> -->
+      <div id="sketch"></div>
+      <figcaption>Click on the image to see the original</figcaption>
+    </figure>
+    <a class="prev" onclick="next(-1)">&#10094;</a>
+    <a class="next" onclick="next(1)">&#10095;</a>
+  </div>
 
   <hr>
 
